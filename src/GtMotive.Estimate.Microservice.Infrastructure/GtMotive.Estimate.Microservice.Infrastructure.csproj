@@ -14,8 +14,4 @@
         <PackageReference Include="Polly" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\GtMotive.Estimate.Microservice.ApplicationCore\GtMotive.Estimate.Microservice.ApplicationCore.csproj" />
-    </ItemGroup>
-
 </Project>
