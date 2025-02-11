@@ -19,3 +19,13 @@ Before you begin, ensure you have the following installed:
    Open a terminal and navigate to the `database` folder where the `docker-compose.yml` file is located:
    ```bash
    cd path/to/database
+
+2. **Start the container**:
+   Run the following command to start the MongoDB container in detached mode:
+   ```bash
+   docker-compose up -d
+
+3. **Verify the container is running**:
+   To check if the container is running correctly, execute the following command:
+   ```bash
+   docker ps -a
