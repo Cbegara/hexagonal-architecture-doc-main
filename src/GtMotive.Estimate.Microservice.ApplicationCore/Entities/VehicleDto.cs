@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GtMotive.Estimate.Microservice.ApplicationCore.Entities
+﻿namespace GtMotive.Estimate.Microservice.ApplicationCore.Entities
 {
     /// <summary>
     /// Data transfer object representing a vehicle.
@@ -10,7 +8,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.Entities
         /// <summary>
         /// Gets or sets the unique identifier for the vehicle.
         /// </summary>
-        public Guid VehicleId { get; set; }
+        public string VehicleId { get; set; }
 
         /// <summary>
         /// Gets or sets the make of the vehicle.
@@ -26,5 +24,10 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.Entities
         /// Gets or sets the license plate of the vehicle.
         /// </summary>
         public string LicensePlate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the year the vehicle was manufactured.
+        /// </summary>
+        public int YearOfManufacture { get; set; }
     }
 }

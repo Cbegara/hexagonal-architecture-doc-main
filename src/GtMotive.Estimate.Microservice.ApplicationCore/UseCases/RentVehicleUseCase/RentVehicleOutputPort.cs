@@ -5,7 +5,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicleUse
     /// <summary>
     /// Output port for handling the response of the RentVehicle use case.
     /// </summary>
-    public sealed class RentVehicleOutputPort : IOutputPortStandard<RentVehicleUseCaseOutput>
+    public sealed class RentVehicleOutputPort : IOutputPortStandard<RentVehicleUseCaseOutput>, IOutputPortNotFound
     {
         /// <summary>
         /// Handles the standard response for the RentVehicle use case.
@@ -17,6 +17,15 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicleUse
             ArgumentNullException.ThrowIfNull(response);
 
             Console.WriteLine($"Vehicle Rented: Rental ID: {response.RentalId}, Message: {response.Message}");
+        }
+
+        /// <summary>
+        /// Handles the case when the requested vehicle is not found.
+        /// </summary>
+        /// <param name="message">The error message indicating the vehicle was not found.</param>
+        public void NotFoundHandle(string message)
+        {
+            Console.WriteLine($"Error: {message}");
         }
     }
 }

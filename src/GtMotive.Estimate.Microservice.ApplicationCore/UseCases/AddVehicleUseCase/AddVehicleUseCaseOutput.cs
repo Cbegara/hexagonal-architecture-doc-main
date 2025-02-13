@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.AddVehicleUseCase
+﻿namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.AddVehicleUseCase
 {
     /// <summary>
     /// Output data for the AddVehicle use case.
@@ -8,12 +6,12 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.AddVehicleUseC
     public sealed class AddVehicleUseCaseOutput : IUseCaseOutput
     {
         /// <summary>
-        /// Gets or sets the unique identifier of the vehicle.
+        /// Gets or sets the ID of the added vehicle.
         /// </summary>
-        public Guid VehicleId { get; set; }
+        public string VehicleId { get; set; }
 
         /// <summary>
-        /// Gets or sets the message associated with the use case output.
+        /// Gets or sets the message indicating the result of the add operation.
         /// </summary>
         public string Message { get; set; }
     }

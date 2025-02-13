@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicleUseCase
+﻿namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicleUseCase
 {
     /// <summary>
     /// Output data for the ReturnVehicle use case.
@@ -10,7 +8,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicleU
         /// <summary>
         /// Gets or sets the rental identifier.
         /// </summary>
-        public Guid RentalId { get; set; }
+        public string RentalId { get; set; }
 
         /// <summary>
         /// Gets or sets the message.

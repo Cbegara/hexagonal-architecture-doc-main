@@ -5,7 +5,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableV
     /// <summary>
     /// Output port for handling the response of the ListAvailableVehicles use case.
     /// </summary>
-    public sealed class ListAvailableVehiclesOutputPort : IOutputPortStandard<ListAvailableVehiclesUseCaseOutput>
+    public sealed class ListAvailableVehiclesOutputPort : IOutputPortStandard<ListAvailableVehiclesUseCaseOutput>, IOutputPortNotFound
     {
         /// <summary>
         /// Handles the standard response for the ListAvailableVehicles use case.
@@ -20,6 +20,15 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableV
             {
                 Console.WriteLine($"Vehicle: {vehicle.Brand} {vehicle.Model}, License Plate: {vehicle.LicensePlate}");
             }
+        }
+
+        /// <summary>
+        /// Handles the case when no vehicles are found.
+        /// </summary>
+        /// <param name="message">The error message indicating no vehicles were found.</param>
+        public void NotFoundHandle(string message)
+        {
+            Console.WriteLine($"Error: {message}");
         }
     }
 }

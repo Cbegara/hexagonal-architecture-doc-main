@@ -1,0 +1,28 @@
+services:
+  gtmotive.app:
+    image: ${DOCKER_REGISTRY-}gtmotiveestimatemicroservicehost
+    build:
+      context: .
+      dockerfile: src/GtMotive.Estimate.Microservice.Host/Dockerfile
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_DATABASE: gtmotive  
+    volumes:
+        - mongo-data:/data/db
+        - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - backend
+volumes:
+  mongo-data:
+networks:
+  backend:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"

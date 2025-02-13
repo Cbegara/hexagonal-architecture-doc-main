@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Infrastructure.Interfaces;
@@ -9,24 +10,23 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
 {
     public sealed class RentalRepository(IMongoDatabase database) : MongoRepository<Rental>(database, "Rentals"), IRentalRepository
     {
-        public async Task<Rental> GetActiveRentalByCustomerAsync(Guid customerId)
+        public async Task<IEnumerable<Rental>> GetActiveRentalsAsync()
         {
-            var filter = Builders<Rental>.Filter.Where(r => r.CustomerId == customerId &&
-                                                                        r.EndDate == null);
-            return await Collection.Find(filter).FirstOrDefaultAsync();
+            var filter = Builders<Rental>.Filter.Eq(v => v.EndDate, null);
+            return await Collection.Find(filter).ToListAsync();
         }
 
-        public async Task<bool> HasActiveRentalAsync(Guid customerId)
+        public async Task<bool> HasActiveRentalAsync(string customerName)
         {
             var count = await Collection.CountDocumentsAsync(
-                Builders<Rental>.Filter.Where(r => r.CustomerId == customerId && r.EndDate == null));
+                Builders<Rental>.Filter.Where(r => r.CustomerName == customerName && r.EndDate == null));
             return count > 0;
         }
 
-        public async Task CompleteRentalAsync(Guid rentalId, DateTime returnDate)
+        public async Task CompleteRentalAsync(string rentalId, DateTime returnDate)
         {
             var update = Builders<Rental>.Update.Set(r => r.EndDate, returnDate);
-            await Collection.UpdateOneAsync(r => r.Id == rentalId, update);
+            await Collection.UpdateOneAsync(r => r.RentalId == rentalId, update);
         }
     }
 }

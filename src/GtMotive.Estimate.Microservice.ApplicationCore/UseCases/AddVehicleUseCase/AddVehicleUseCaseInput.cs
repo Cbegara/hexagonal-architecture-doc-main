@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.AddVehicleUseCase
 {
@@ -10,21 +10,25 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.AddVehicleUseC
         /// <summary>
         /// Gets or sets the make of the vehicle.
         /// </summary>
-        public string Make { get; set; }
+        [Required]
+        public string Brand { get; set; }
 
         /// <summary>
         /// Gets or sets the model of the vehicle.
         /// </summary>
+        [Required]
         public string Model { get; set; }
 
         /// <summary>
         /// Gets or sets the manufacturing date of the vehicle.
         /// </summary>
-        public DateTime ManufacturingDate { get; set; }
+        [Required]
+        public int ManufacturingDate { get; set; }
 
         /// <summary>
         /// Gets or sets the license plate of the vehicle.
         /// </summary>
+        [Required]
         public string LicensePlate { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicleUseCase
 {
@@ -10,11 +10,13 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicleUse
         /// <summary>
         /// Gets or sets the unique identifier of the customer.
         /// </summary>
-        public Guid CustomerId { get; set; }
+        [Required]
+        public string CustomerName { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the vehicle.
         /// </summary>
-        public Guid VehicleId { get; set; }
+        [Required]
+        public string VehicleId { get; set; }
     }
 }

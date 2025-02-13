@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDb
@@ -10,9 +10,10 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDb
     {
         protected IMongoCollection<T> Collection { get; } = database.GetCollection<T>(collectionName);
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(string id)
         {
-            return await Collection.Find(Builders<T>.Filter.Eq("Id", id)).FirstOrDefaultAsync();
+            var objectId = new ObjectId(id);
+            return await Collection.Find(Builders<T>.Filter.Eq("_id", objectId)).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -25,14 +26,10 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDb
             await Collection.InsertOneAsync(entity);
         }
 
-        public async Task UpdateAsync(Guid id, T entity)
+        public async Task UpdateAsync(string id, T entity)
         {
-            await Collection.ReplaceOneAsync(Builders<T>.Filter.Eq("Id", id), entity);
-        }
-
-        public async Task DeleteAsync(Guid id)
-        {
-            await Collection.DeleteOneAsync(Builders<T>.Filter.Eq("Id", id));
+            var objectId = new ObjectId(id);
+            await Collection.ReplaceOneAsync(Builders<T>.Filter.Eq("_id", objectId), entity);
         }
     }
 }
