@@ -7,11 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="11.0.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\GtMotive.Estimate.Microservice.Domain\GtMotive.Estimate.Microservice.Domain.csproj" />
+        <ProjectReference Include="..\GtMotive.Estimate.Microservice.Infrastructure\GtMotive.Estimate.Microservice.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
