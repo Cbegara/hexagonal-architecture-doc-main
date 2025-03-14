@@ -24,7 +24,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 var builder = WebApplication.CreateBuilder();
 
 // Configuration.
-if (!builder.Environment.IsDevelopment())
+if (!(builder.Environment.IsDevelopment() || builder.Environment.IsStaging()))
 {
     builder.Configuration.AddJsonFile("serilogsettings.json", optional: false, reloadOnChange: true);
 
@@ -47,7 +47,7 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 // Add services to the container.
-if (!builder.Environment.IsDevelopment())
+if (!(builder.Environment.IsDevelopment() || builder.Environment.IsStaging()))
 {
     builder.Services.AddApplicationInsightsTelemetry(builder.Configuration);
     builder.Services.AddApplicationInsightsKubernetesEnricher();
@@ -65,7 +65,7 @@ builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("Mo
 builder.Services.AddControllers(ApiConfiguration.ConfigureControllers)
     .WithApiControllers();
 
-builder.Services.AddBaseInfrastructure(builder.Environment.IsDevelopment());
+builder.Services.AddBaseInfrastructure(builder.Environment.IsDevelopment() || builder.Environment.IsStaging());
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -97,7 +97,7 @@ builder.Services.AddSwagger(appSettings, builder.Configuration);
 var app = builder.Build();
 
 // Logging configuration.
-Log.Logger = builder.Environment.IsDevelopment() ?
+Log.Logger = (builder.Environment.IsDevelopment() || builder.Environment.IsStaging()) ?
     new LoggerConfiguration()
         .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
         .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
@@ -128,7 +128,7 @@ if (!pathBase.IsDefault)
 
 app.UseForwardedHeaders();
 
-if (app.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 {
     app.UseDeveloperExceptionPage();
 }

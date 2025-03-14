@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: src/GtMotive.Estimate.Microservice.Host/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Staging
     depends_on:
       - mongodb
     networks:
@@ -17,7 +17,7 @@ services:
     ports:
       - '27017:27017'
     environment:
-      MONGO_INITDB_DATABASE: gtmotive  
+      MONGO_INITDB_DATABASE: GTMotive  
     volumes:
         - mongo-data:/data/db
         - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
