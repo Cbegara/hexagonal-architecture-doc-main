@@ -4,10 +4,14 @@ services:
     build:
       context: .
       dockerfile: src/GtMotive.Estimate.Microservice.Host/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - mongodb
     networks:
       - backend
+    ports:
+      - "8080:8080"  
   mongodb:
     image: mongo:latest
     ports:
